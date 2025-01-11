@@ -7,13 +7,13 @@ import LanguageSwitcher from "@/components/LanguageSwitcher";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useTheme } from "next-themes";
+// import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
 export default function Auth() {
   const { t } = useTranslation("common");
-  const { resolvedTheme } = useTheme();
+  // const { resolvedTheme } = useTheme();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -34,10 +34,7 @@ export default function Auth() {
         }
 
         const { data: signUpData, error: signUpError } =
-          await supabase.auth.signUp({
-            email,
-            password,
-          });
+          await supabase.auth.signUp({ email, password });
 
         if (signUpError) throw signUpError;
 
@@ -61,14 +58,16 @@ export default function Auth() {
       }
 
       // Check if there's a pending URL to shorten
-      const pendingUrl = sessionStorage.getItem('pendingShortUrl');
+      const pendingUrl = sessionStorage.getItem("pendingShortUrl");
       if (pendingUrl) {
         // Navigate to dashboard with state to open create dialog
-        navigate('/dashboard', { state: { openCreateDialog: true, pendingUrl } });
+        navigate("/dashboard", {
+          state: { openCreateDialog: true, pendingUrl },
+        });
         // Clear the pending URL
-        sessionStorage.removeItem('pendingShortUrl');
+        sessionStorage.removeItem("pendingShortUrl");
       } else {
-        navigate('/dashboard');
+        navigate("/dashboard");
       }
     } catch (error: any) {
       toast.error(error.message);
@@ -79,7 +78,7 @@ export default function Auth() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col justify-center py-12 sm:px-6 lg:px-8 items-center">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+      {/* <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
           <img
             src={
@@ -89,7 +88,7 @@ export default function Auth() {
             className="h-12"
           />
         </div>
-      </div>
+      </div> */}
 
       <div className="mt-8 flex flex-col gap-2 sm:mx-auto sm:w-full sm:max-w-md  max-w-[90%] w-full">
         <Card>
