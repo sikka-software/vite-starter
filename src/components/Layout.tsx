@@ -1,22 +1,28 @@
-// Layout
+import { Outlet } from "react-router-dom";
 
-import { supabase } from "@/lib/supabase";
-import { Button } from "./ui/button";
-import { useNavigate, Outlet } from "react-router-dom";
+import { SidebarProvider } from "./ui/sidebar";
+import { AppSidebar } from "./ui/app-sidebar";
+import TopBar from "./TopBar";
+import { ThemeProvider } from "next-themes";
 
 export default function Layout() {
-  const navigate = useNavigate();
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <Outlet />
-      <Button
-        onClick={() => {
-          supabase.auth.signOut();
-          navigate("/auth");
-        }}
-      >
-        Logout
-      </Button>
-    </div>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      disableTransitionOnChange
+    >
+      <SidebarProvider>
+        <AppSidebar />
+        <div className="min-h-screen w-full bg-background">
+          <TopBar />
+          <div className="flex w-full p-4">
+            <main className="flex-1">
+              <Outlet />
+            </main>
+          </div>
+        </div>
+      </SidebarProvider>
+    </ThemeProvider>
   );
 }
