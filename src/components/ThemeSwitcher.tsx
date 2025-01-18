@@ -22,7 +22,7 @@ export default function ThemeSwitcher() {
           {resolvedTheme === "dark" ? <Moon /> : <Sun />}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align={i18n.language === "dark" ? "start" : "end"}>
+      <DropdownMenuContent align={i18n.language === "ar" ? "start" : "end"}>
         <DropdownMenuRadioGroup
           value={theme === "dark" ? "dark" : "light"}
           onValueChange={(e) => {
